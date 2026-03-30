@@ -1,0 +1,30 @@
+@model Book
+@{ ViewData["Title"] = "Book Details"; }
+
+<div class="d-flex align-items-center mb-4">
+    <a asp-action="Index" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+    <h4 class="fw-bold mb-0">Book Details</h4>
+</div>
+
+<div class="card" style="max-width:500px">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Title</dt>       <dd class="col-sm-8">@Model.Title</dd>
+            <dt class="col-sm-4">Author</dt>      <dd class="col-sm-8">@Model.Author</dd>
+            <dt class="col-sm-4">ISBN</dt>        <dd class="col-sm-8"><code>@Model.ISBN</code></dd>
+            <dt class="col-sm-4">Genre</dt>       <dd class="col-sm-8">@Model.Genre</dd>
+            <dt class="col-sm-4">Year</dt>        <dd class="col-sm-8">@Model.PublicationYear</dd>
+            <dt class="col-sm-4">Status</dt>
+            <dd class="col-sm-8">
+                @if (Model.IsAvailable)
+                { <span class="badge bg-success">Available</span> }
+                else
+                { <span class="badge bg-danger">Borrowed</span> }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm me-2">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Back to List</a>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+@model Borrowing
+@{ ViewData["Title"] = "New Borrowing"; }
+
+<div class="d-flex align-items-center mb-4">
+    <a asp-action="Index" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+    <h4 class="fw-bold mb-0">New Borrowing</h4>
+</div>
+
+<div class="card" style="max-width:600px">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger small"></div>
+
+            <div class="mb-3">
+                <label asp-for="BookId" class="form-label fw-semibold">Book</label>
+                <select asp-for="BookId" asp-items="ViewBag.Books" class="form-select">
+                    <option value="">-- Select a Book --</option>
+                </select>
+                <span asp-validation-for="BookId" class="text-danger small"></span>
+                <small class="text-muted">Only available books are shown.</small>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ReaderId" class="form-label fw-semibold">Reader</label>
+                <select asp-for="ReaderId" asp-items="ViewBag.Readers" class="form-select">
+                    <option value="">-- Select a Reader --</option>
+                </select>
+                <span asp-validation-for="ReaderId" class="text-danger small"></span>
+            </div>
+
+            <div class="row">
+                <div class="col mb-3">
+                    <label asp-for="BorrowDate" class="form-label fw-semibold"></label>
+                    <input asp-for="BorrowDate" class="form-control" type="date" />
+                </div>
+                <div class="col mb-3">
+                    <label asp-for="DueDate" class="form-label fw-semibold"></label>
+                    <input asp-for="DueDate" class="form-control" type="date" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Create Borrowing</button>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

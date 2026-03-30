@@ -1,0 +1,47 @@
+@model IEnumerable<Borrowing>
+@{ ViewData["Title"] = "Borrowings"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0"><i class="bi bi-arrow-left-right me-2"></i>Borrowings</h4>
+    <a asp-action="Create" class="btn btn-warning"><i class="bi bi-plus-lg me-1"></i>New Borrowing</a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr><th>Book</th><th>Reader</th><th>Borrow Date</th><th>Due Date</th><th>Status</th><th>Fee</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var b in Model)
+            {
+                var isOverdue = !b.IsReturned && b.DueDate < DateTime.Today;
+                <tr class="@(isOverdue ? "table-danger" : "")">
+                    <td class="fw-semibold">@b.BookTitle</td>
+                    <td>@b.ReaderName</td>
+                    <td>@b.BorrowDate.ToString("yyyy-MM-dd")</td>
+                    <td>@b.DueDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (b.IsReturned)
+                        { <span class="badge bg-success">Returned</span> }
+                        else if (isOverdue)
+                        { <span class="badge bg-danger">Overdue</span> }
+                        else
+                        { <span class="badge bg-warning text-dark">Active</span> }
+                    </td>
+                    <td>@(b.OverdueFee > 0 ? $"${b.OverdueFee:F2}" : "-")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@b.Id" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></a>
+                        <a asp-action="Edit"    asp-route-id="@b.Id" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete"  asp-route-id="@b.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr><td colspan="7" class="text-center text-muted py-4">No borrowings found.</td></tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

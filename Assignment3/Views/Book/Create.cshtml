@@ -1,0 +1,48 @@
+@model Book
+@{ ViewData["Title"] = "Add Book"; }
+
+<div class="d-flex align-items-center mb-4">
+    <a asp-action="Index" class="btn btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+    <h4 class="fw-bold mb-0">Add New Book</h4>
+</div>
+
+<div class="card" style="max-width:600px">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger small"></div>
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label fw-semibold"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Author" class="form-label fw-semibold"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ISBN" class="form-label fw-semibold"></label>
+                <input asp-for="ISBN" class="form-control" />
+                <span asp-validation-for="ISBN" class="text-danger small"></span>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label asp-for="Genre" class="form-label fw-semibold"></label>
+                    <input asp-for="Genre" class="form-control" />
+                </div>
+                <div class="col mb-3">
+                    <label asp-for="PublicationYear" class="form-label fw-semibold"></label>
+                    <input asp-for="PublicationYear" class="form-control" />
+                    <span asp-validation-for="PublicationYear" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="mb-3 form-check">
+                <input asp-for="IsAvailable" class="form-check-input" />
+                <label asp-for="IsAvailable" class="form-check-label">Available</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Book</button>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
